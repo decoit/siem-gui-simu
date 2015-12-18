@@ -1,0 +1,60 @@
+<div id="incidentcomment" class="row">
+	<div class="col-md-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading">Vorfall kommentieren</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-info">
+							<div class="panel-heading">Details</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-6"><strong>{{ details.incDetails.name }}</strong></div>
+									<div class="col-md-6 text-right">{{ details.incDetails.source }} -&gt; {{ details.incDetails.destination }}</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">{{ formatLocalDateTime(details.incDetails.timestamp) }}</div>
+									<div class="col-md-6 text-right">Risiko: {{ details.incDetails.risk }}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-info">
+							<div class="panel-heading">Kommentar</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-12">
+										<textarea name="commentTextArea" placeholder="Bitte hier den Kommentar (min. 10 Zeichen) eintragen" rows="10" class="form-control" ng-model="$parent.commentText"></textarea>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6"><button class="btn btn-primary" ng-click="$close('Comment canceled')">Abbrechen</button></div>
+									<div class="col-md-6 text-right"><button class="btn btn-primary" ng-click="sendComment()" ng-disabled="validateComment()">Absenden</button></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-md-12">Verlauf</div>
+								</div>
+							</div>
+							<div class="panel-body scrollable-panel-body">
+								<siemgui-history-item item="item" quote="true" quote-callback="quoteComment(arg)" quote-callback-arg="{{ $index }}" ng-repeat="item in history"></siemgui-history-item>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

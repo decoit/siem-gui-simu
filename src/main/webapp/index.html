@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html ng-app="SiemGui">
+    <head>
+		<title>DECOIT SIEM GUI</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Bootstrap CSS -->
+		<!-- Source: http://bootswatch.com/spacelab/bootstrap.min.css -->
+		<link rel="stylesheet" type="text/css" href="css/bootswatch-spacelab-bootstrap.min.css">
+
+		<!-- SIEM GUI CSS -->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-overrides.css">
+
+		<!-- Highcharts JavaScript -->
+		<script type="application/javascript" src="js/lib/highcharts/highcharts-all.js"></script>
+
+		<!-- Lo-Dash JavaScript -->
+		<script type="application/javascript" src="js/lib/lodash.min.js"></script>
+
+		<!-- AngularJS JavaScript -->
+		<script type="application/javascript" src="js/lib/angular.min.js"></script>
+		<script type="application/javascript" src="js/lib/angular-sanitize.min.js"></script>
+		<script type="application/javascript" src="js/lib/angular-ui-router.min.js"></script>
+		<script type="application/javascript" src="js/lib/highcharts-ng.min.js"></script>
+
+		<!-- Bootstrap JavaScript -->
+		<script type="application/javascript" src="js/lib/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+		<!-- WebSocket JavaScript -->
+		<script type="application/javascript" src="js/lib/sockjs-0.3.4.min.js"></script>
+		<script type="application/javascript" src="js/lib/stomp.min.js"></script>
+
+		<!-- SIEM GUI JavaScript -->
+		<script type="application/javascript" src="js/siemgui-app.js"></script>
+		<script type="application/javascript" src="js/filter/siemgui-filt-striphtml.js"></script>
+		<script type="application/javascript" src="js/filter/siemgui-filt-striplinebreaks.js"></script>
+		<script type="application/javascript" src="js/directive/historyitem/siemgui-dir-historyitem.js"></script>
+		<script type="application/javascript" src="js/service/siemgui-serv-lodash.js"></script>
+		<script type="application/javascript" src="js/service/siemgui-serv-websocket.js"></script>
+		<script type="application/javascript" src="js/service/siemgui-serv-subscription.js"></script>
+		<script type="application/javascript" src="js/service/siemgui-serv-charts.js"></script>
+		<script type="application/javascript" src="js/service/siemgui-serv-incidents.js"></script>
+		<script type="application/javascript" src="js/service/siemgui-serv-overview.js"></script>
+		<script type="application/javascript" src="js/service/siemgui-serv-userdetails.js"></script>
+		<script type="application/javascript" src="js/service/siemgui-serv-threatlevel.js"></script>
+		<script type="application/javascript" src="js/service/siemgui-serv-admin.js"></script>
+		<script type="application/javascript" src="js/controller/siemgui-ctrl-errors.js"></script>
+		<script type="application/javascript" src="js/controller/siemgui-ctrl-forcelogout.js"></script>
+		<script type="application/javascript" src="js/controller/siemgui-ctrl-charts.js"></script>
+		<script type="application/javascript" src="js/controller/siemgui-ctrl-incidents.js"></script>
+		<script type="application/javascript" src="js/controller/siemgui-ctrl-incidentdetails.js"></script>
+		<script type="application/javascript" src="js/controller/siemgui-ctrl-incidentcomment.js"></script>
+		<script type="application/javascript" src="js/controller/siemgui-ctrl-overview.js"></script>
+		<script type="application/javascript" src="js/controller/siemgui-ctrl-pushnotification.js"></script>
+		<script type="application/javascript" src="js/controller/siemgui-ctrl-userdetails.js"></script>
+		<script type="application/javascript" src="js/controller/siemgui-ctrl-threatlevel.js"></script>
+		<script type="application/javascript" src="js/controller/siemgui-ctrl-admin.js"></script>
+		<script type="application/javascript" src="js/controller/siemgui-ctrl-admin-users.js"></script>
+		<script type="application/javascript" src="js/controller/siemgui-ctrl-visitmeta.js"></script>
+    </head>
+
+    <body>
+		<div class="container-fluid">
+			<div class="row">
+				<nav class="navbar navbar-default navbar-static-top" role="navigation">
+					<div class="navbar-header">
+						<a class="navbar-brand" ui-sref="overview">
+							<img id="siemguilogo" src="img/simu.svg" alt="SIMU Logo">
+						</a>
+					</div>
+
+					<ul class="nav navbar-nav">
+						<li ng-class="{active: navpath==='overview'}">
+							<a ui-sref="overview">&Uuml;bersicht</a>
+						</li>
+						<li ng-class="{active: navpath==='charts'}">
+							<a ui-sref="charts">Diagramme</a>
+						</li>
+						<li ng-class="{active: navpath==='incidents'}">
+							<a ui-sref="incidents">Vorf&auml;lle</a>
+						</li>
+						<li ng-class="{active: navpath==='visitmeta'}">
+							<a ui-sref="visitmeta">VisITMeta</a>
+						</li>
+						<li ng-show="userIsAdmin" ng-class="{active: navpath==='admin'}">
+							<a ui-sref="admin">Administration</a>
+						</li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="logout.html">Logout</a>
+						</li>
+						<li>
+							<a href="http://www.simu-project.de/" class="navbar-link">&copy;2014-2015 SIMU Konsortium</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+
+			<div class="row" ng-controller="ErrorMessagesController">
+				<div class="col-md-12">
+					<alert type="danger" close="closeAlert($index)" ng-repeat="a in alerts">&#91;{{ a.time }}&#93; {{ a.text }}</alert>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-8">
+					<div class="panel panel-primary" ui-view></div>
+				</div>
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-primary" ng-controller="ThreatLevelController">
+								<div class="panel-heading">Bedrohungsstufe</div>
+								<div class="panel-body">
+									<progress>
+										<bar ng-repeat="bar in threatlevel" value="bar.value" type="{{bar.type}}"></bar>
+									</progress>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading">Benutzerdetails</div>
+								<div class="panel-body" ng-controller="UserDetailsController">
+									<strong>Benutzername:</strong> {{ userdetails.username }}<br>
+									<strong>Echter Name:</strong> {{ userdetails.realname}}<br>
+									<strong>Rollen:</strong>
+									<ul>
+										<li ng-repeat="role in userdetails.roles">{{ role }}</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading">Benachrichtigungen</div>
+								<div class="panel-body" ng-controller="PushNotificationController">
+									<a href="#{{ navpath }}" ng-click="clearNotifications()">Alle l&ouml;schen</a>
+									<ul>
+										<li ng-repeat="note in notifications">&#91;{{ note.time }}&#93; {{ note.text }}</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </body>
+</html>

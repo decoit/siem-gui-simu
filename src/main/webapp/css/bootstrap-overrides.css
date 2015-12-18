@@ -1,0 +1,16 @@
+.navbar-brand {
+	padding: 0px 15px !important;
+}
+
+.progress-bar-warning {
+	background-color: #dddd00 !important;
+}
+
+.progress-bar-danger {
+	background-color: #ee0200 !important;
+}
+
+blockquote {
+	font-size: 14px !important;
+	border-left: 4px solid #dddddd;
+}

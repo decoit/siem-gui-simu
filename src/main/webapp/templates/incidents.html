@@ -1,0 +1,119 @@
+<div class="panel-heading">Vorfälle</div>
+<div class="panel-body">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">Aktive Vorfälle</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>
+											Zeit
+											<a ng-click="sortActiveByDate(false)"><span ng-class="{sortactive: sortedBy.active.date}" class="glyphicon glyphicon-sort-by-attributes tableheadsort"></span></a>
+											<a ng-click="sortActiveByDate(true)"><span ng-class="{sortactive: sortedBy.active.dateRev}" class="glyphicon glyphicon-sort-by-attributes-alt tableheadsort"></span></a>
+										</th>
+										<th>
+											Titel
+											<a ng-click="sortActiveByTitle(false)"><span ng-class="{sortactive: sortedBy.active.title}" class="glyphicon glyphicon-sort-by-attributes tableheadsort"></span></a>
+											<a ng-click="sortActiveByTitle(true)"><span ng-class="{sortactive: sortedBy.active.titleRev}" class="glyphicon glyphicon-sort-by-attributes-alt tableheadsort"></span></a>
+										</th>
+										<th>
+											Risiko
+											<a ng-click="sortActiveByRisk(false)"><span ng-class="{sortactive: sortedBy.active.risk}" class="glyphicon glyphicon-sort-by-attributes tableheadsort"></span></a>
+											<a ng-click="sortActiveByRisk(true)"><span ng-class="{sortactive: sortedBy.active.riskRev}" class="glyphicon glyphicon-sort-by-attributes-alt tableheadsort"></span></a>
+										</th>
+										<th>
+											Fällig am
+											<a ng-click="sortActiveByDueOnDate(false)"><span ng-class="{sortactive: sortedBy.active.dueOn}" class="glyphicon glyphicon-sort-by-attributes tableheadsort"></span></a>
+											<a ng-click="sortActiveByDueOnDate(true)"><span ng-class="{sortactive: sortedBy.active.dueOnRev}" class="glyphicon glyphicon-sort-by-attributes-alt tableheadsort"></span></a>
+										</th>
+										<th>
+											Status
+											<a ng-click="sortActiveByStatus(false)"><span ng-class="{sortactive: sortedBy.active.status}" class="glyphicon glyphicon-sort-by-attributes tableheadsort"></span></a>
+											<a ng-click="sortActiveByStatus(true)"><span ng-class="{sortactive: sortedBy.active.statusRev}" class="glyphicon glyphicon-sort-by-attributes-alt tableheadsort"></span></a>
+										</th>
+										<th>
+											Bearbeiter
+											<a ng-click="sortActiveByOwner(false)"><span ng-class="{sortactive: sortedBy.active.owner}" class="glyphicon glyphicon-sort-by-attributes tableheadsort"></span></a>
+											<a ng-click="sortActiveByOwner(true)"><span ng-class="{sortactive: sortedBy.active.ownerRev}" class="glyphicon glyphicon-sort-by-attributes-alt tableheadsort"></span></a>
+										</th>
+										<th>Aktionen</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="inc in activeIncidents" class="eventlistrow">
+										<td>{{ formatLocalDateTime(inc.timestamp) }}</td>
+										<td>{{ inc.name }}</td>
+										<td>{{ inc.risk }}</td>
+										<td ng-class="{incoverdue: inc.isOverdue}">{{ formatLocalDateTime(inc.ticket.dueOn) }}</td>
+										<td>{{ formatIncidentStatus(inc.status) }}</td>
+										<td>{{ getTicketOwnerName(inc.ticket.owner) }}</td>
+										<td>
+											<button ng-click="openIncidentDetails($index, true)" type="button" class="btn btn-primary btn-xs">Details</button>
+											<button ng-if="getTicketOwnerName(inc.ticket.owner) === '---'" ng-click="takeIncident(inc.id)" type="button" class="btn btn-primary btn-xs">Übernehmen</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">Gelöste Vorfälle</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>
+											Zeit
+											<a ng-click="sortResolvedByDate(false)"><span ng-class="{sortactive: sortedBy.resolved.date}" class="glyphicon glyphicon-sort-by-attributes tableheadsort"></span></a>
+											<a ng-click="sortResolvedByDate(true)"><span ng-class="{sortactive: sortedBy.resolved.dateRev}" class="glyphicon glyphicon-sort-by-attributes-alt tableheadsort"></span></a>
+										</th>
+										<th>
+											Abgeschlossen am
+											<a ng-click="sortResolvedByResDate(false)"><span ng-class="{sortactive: sortedBy.resolved.resDate}" class="glyphicon glyphicon-sort-by-attributes tableheadsort"></span></a>
+											<a ng-click="sortResolvedByResDate(true)"><span ng-class="{sortactive: sortedBy.resolved.resDateRev}" class="glyphicon glyphicon-sort-by-attributes-alt tableheadsort"></span></a>
+										</th>
+										<th>
+											Titel
+											<a ng-click="sortResolvedByTitle(false)"><span ng-class="{sortactive: sortedBy.resolved.title}" class="glyphicon glyphicon-sort-by-attributes tableheadsort"></span></a>
+											<a ng-click="sortResolvedByTitle(true)"><span ng-class="{sortactive: sortedBy.resolved.titleRev}" class="glyphicon glyphicon-sort-by-attributes-alt tableheadsort"></span></a>
+										</th>
+										<th>
+											Risiko
+											<a ng-click="sortResolvedByRisk(false)"><span ng-class="{sortactive: sortedBy.resolved.risk}" class="glyphicon glyphicon-sort-by-attributes tableheadsort"></span></a>
+											<a ng-click="sortResolvedByRisk(true)"><span ng-class="{sortactive: sortedBy.resolved.riskRev}" class="glyphicon glyphicon-sort-by-attributes-alt tableheadsort"></span></a>
+										</th>
+										<th>Status</th>
+										<th>Details</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="inc in resolvedIncidents" class="eventlistrow">
+										<td>{{ formatLocalDateTime(inc.timestamp) }}</td>
+										<td>{{ formatLocalDateTime(inc.ticket.resolvedOn) }}</td>
+										<td>{{ inc.name }}</td>
+										<td>{{ inc.risk }}</td>
+										<td>{{ formatIncidentStatus(inc.status) }}</td>
+										<td><button ng-click="openIncidentDetails($index)" type="button" class="btn btn-primary btn-xs">Details</button></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,78 @@
+<div class="row">
+	<div class="col-md-4">
+		<div class="panel panel-info">
+			<div class="panel-heading">Benutzerliste</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div ng-show="userlist === null">
+							<ul class="list-group">
+								<li class="list-group-item">Lade Benutzerliste...</li>
+							</ul>
+						</div>
+						<div class="list-group" ng-hide="userlist === null">
+							<a class="list-group-item" href="" ng-class="{active: activeIndex === {{ $index }}}" ng-click="showDetails($index)" ng-repeat="entry in userlist">
+								<span class="badge" ng-if="entry.siemAdminAuthorized===true">ADMIN</span>
+								<span class="badge" ng-if="entry.siemAuthorized===true">SIEM</span>
+								{{ entry.username }}
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8">
+		<div class="panel panel-info">
+			<div class="panel-heading">Benutzerdetails</div>
+			<div class="panel-body" ng-show="user !== null">
+				<div class="row" ng-show="user.siemAuthorized === true && user.privileged === false">
+					<div class="col-md-12">
+						<alert type="warning">Das Speichern dieser Einstellungen wird den Benutzer in der Benutzerverwaltung als privilegiert markieren!</alert>
+					</div>
+				</div>
+				<div id="userdetails" class="row">
+					<div class="col-md-12">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td class="attrtitle">Benutzer-ID:</td>
+									<td>{{ user.id }}</td>
+								</tr>
+								<tr>
+									<td class="attrtitle">Benutzername:</td>
+									<td>{{ user.username }}</td>
+								</tr>
+								<tr>
+									<td class="attrtitle">Echter Name:</td>
+									<td>{{ user.realName }}</td>
+								</tr>
+								<tr>
+									<td class="attrtitle">Privilegiert:</td>
+									<td><input type="checkbox" class="input-sm checkbox-inline" ng-model="user.privileged" disabled></td>
+								</tr>
+								<tr>
+									<td class="attrtitle">Zugriff auf SIEM-GUI:</td>
+									<td><input type="checkbox" class="input-sm checkbox-inline" ng-model="user.siemAuthorized" ng-click="siemAuthorizedClicked()" ng-disabled="user.username === username"></td>
+								</tr>
+								<tr>
+									<td class="attrtitle">Zugriff auf SIEM-Adminbereich:</td>
+									<td><input type="checkbox" class="input-sm checkbox-inline" ng-model="user.siemAdminAuthorized" ng-disabled="user.siemAuthorized !== true || user.username === username"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-right">
+						<button type="button" class="btn btn-primary" ng-click="storeDetails()" ng-disabled="user.username === username">Speichern</button>
+						<button type="button" class="btn btn-primary" ng-click="closeDetails()">Schließen</button>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body" ng-hide="user !== null">
+				Bitte links einen Benutzer auswählen
+			</div>
+		</div>
+	</div>
+</div>

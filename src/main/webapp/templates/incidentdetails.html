@@ -1,0 +1,127 @@
+<div id="incidentdetails" class="row">
+	<div class="col-md-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading">Details für Vorfall</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="panel panel-info">
+							<div class="panel-heading">Allgemeine Informationen</div>
+							<div class="panel-body">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td class="attrtitle">Titel:</td>
+											<td>{{ details.incDetails.name }}</td>
+										</tr>
+										<tr>
+											<td class="attrtitle">Datum:</td>
+											<td>{{ formatLocalDateTime(details.incDetails.timestamp) }}</td>
+										</tr>
+										<tr>
+											<td class="attrtitle">Risiko:</td>
+											<td>{{ details.incDetails.risk }} ({{ formatThreatLevel(details.incDetails.threatLevel) }})</td>
+										</tr>
+										<tr>
+											<td class="attrtitle">Fällig am:</td>
+											<td ng-class="{incoverdue: details.incDetails.isOverdue}">{{ formatLocalDateTime(details.incDetails.ticket.dueOn) }}</td>
+										</tr>
+										<tr>
+											<td class="attrtitle">MAP-Graph einsehen:</td>
+											<td><button ng-if="details.incDetails.graph.length > 0" ng-click="openVisITMeta()" type="button" class="btn btn-primary btn-xs">VisITMeta öffnen</button></td>
+										</tr>
+<!--									<tr>
+											<td class="attrtitle">Quelle:</td>
+											<td>{{ details.incDetails.source }}</td>
+										</tr>
+										<tr>
+											<td class="attrtitle">Ziel:</td>
+											<td>{{ details.incDetails.destination }}</td>
+										</tr> -->
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="panel panel-info">
+							<div class="panel-heading">Ticket</div>
+							<div class="panel-body">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td class="attrtitle">Bearbeiter:</td>
+											<td>
+												<span ng-if="getTicketOwnerName(details.incDetails.ticket.owner) !== '---'">{{ getTicketOwnerName(details.incDetails.ticket.owner) }}</span>
+												<button ng-if="getTicketOwnerName(details.incDetails.ticket.owner) === '---'" ng-click="takeIncident(details.incDetails.id)" type="button" class="btn btn-primary btn-xs">Übernehmen</button>
+											</td>
+										</tr>
+										<tr>
+											<td class="attrtitle">Status:</td>
+											<td>
+												<div class="row">
+													<div class="col-md-6">
+														{{ formatIncidentStatus(details.incDetails.status) }}
+													</div>
+													<div class="text-right col-md-6">
+														<span ng-if="details.incDetails.ticket.owner.username === username">
+															<button ng-if="details.incDetails.status === 'NEW'" ng-click="beginWorkOnIncident(details.incDetails.id)" type="button" class="btn btn-primary btn-xs">Beginnen</button>
+															<button ng-if="details.incDetails.status === 'IN_PROGRESS'" ng-click="finishWorkOnIncident(details.incDetails.id)" type="button" class="btn btn-primary btn-xs">Abschließen</button>
+														</span>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr ng-if="details.incDetails.status === 'IN_PROGRESS' || details.incDetails.status === 'DONE'">
+											<td class="attrtitle">Zeit gearbeitet:</td>
+											<td>{{ details.incDetails.ticket.timeWorked }} Minuten</td>
+										</tr>
+										<tr ng-if="details.incDetails.status === 'IN_PROGRESS' && details.incDetails.ticket.owner.username === username">
+											<td class="attrtitle">Zeit buchen:</td>
+											<td>
+												<div class="row">
+													<div class="col-md-4">
+														<input type="text" class="form-control input-sm" ng-model="$parent.$parent.timeToBook">
+													</div>
+													<div class="col-md-3 text-left">
+														Minuten
+													</div>
+													<div class="col-md-5 text-right">
+														<button type="button" class="btn btn-primary btn-xs" ng-click="bookTime()">Buchen</button>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-md-6">Verlauf</div>
+									<div class="col-md-6 text-right"><button ng-click="openCommentForm(details.incDetails.id)" type="button" class="btn btn-primary btn-xs">Kommentieren</button></div>
+								</div>
+							</div>
+							<div class="panel-body scrollable-panel-body">
+								<siemgui-history-item item="item" ng-repeat="item in history"></siemgui-history-item>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<button class="btn btn-primary" ng-click="$close('Details dialog closed')">Schließen</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

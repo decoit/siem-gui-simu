@@ -1,0 +1,113 @@
+/*
+ =====================================================
+   _____                _     ____  _   _       _   _
+  |_   _|_ __ _   _ ___| |_  / __ \| | | | ___ | | | |
+    | | | '__| | | / __| __|/ / _` | |_| |/ __|| |_| |
+    | | | |  | |_| \__ \ |_| | (_| |  _  |\__ \|  _  |
+    |_| |_|   \__,_|___/\__|\ \__,_|_| |_||___/|_| |_|
+                             \____/
+
+ =====================================================
+
+ Hochschule Hannover
+ (University of Applied Sciences and Arts, Hannover)
+ Faculty IV, Dept. of Computer Science
+ Ricklinger Stadtweg 118, 30459 Hannover, Germany
+
+ Email: trust@f4-i.fh-hannover.de
+ Website: http://trust.f4.hs-hannover.de/
+
+ This file is part of VisITMeta Javascript GUI for SIMU project, version 0.1.0,
+ implemented by the Trust@HsH research group at the Hochschule Hannover.
+
+ Copyright (C) 2010 - 2015 Trust@HsH
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+.node {
+    stroke: #5d5d5d;
+    stroke-width: 1px;
+}
+
+.edge {
+    stroke: #5d5d5d;
+    stroke-opacity: .6;
+    stroke-width: 1.5px;
+    fill: none;
+}
+
+
+.node-label {
+    stroke-linecap: round;
+    text-shadow: none !important;
+    pointer-events: none; /* prevent touch events */
+}
+
+.ui-page {
+  /*background: #FFFFFF;*/
+}
+
+/*
+#home, #graph {
+    background: #ffffff;
+}
+*/
+#properties {
+    min-width: 250px;
+}
+
+#time, #confirm {
+    min-width: 400px;
+}
+
+#live-switch-container {
+    padding-right: 10px;
+}
+
+@media screen and (orientation: portrait) {
+    #navigation {
+        top: 40%;
+        min-height: 250px;
+        max-width: 65px;
+        background: #e9e9e9;
+    }
+
+    #help-screen {
+        position: fixed !important;
+        top: 20px !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: url('../image/help/help-screen2.png') no-repeat center !important;
+        background-size:contain;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    #navigation {
+        top: 30%;
+        min-height: 250px;
+        max-width: 65px;
+        background: #e9e9e9;
+    }
+
+    #help-screen {
+        position: fixed !important;
+        top: 20px !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: url('../image/help/help-screen1.png') no-repeat center !important;
+        background-size:contain;
+    }
+}

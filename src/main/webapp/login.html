@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="SiemGuiLogin">
+    <head>
+		<title>DECOIT SIEM GUI - Login</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Bootstrap CSS -->
+		<!-- Source: http://bootswatch.com/spacelab/bootstrap.min.css -->
+		<link rel="stylesheet" type="text/css" href="css/bootswatch-spacelab-bootstrap.min.css">
+
+		<!-- SIEM GUI CSS -->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-overrides.css">
+
+		<!-- AngularJS JavaScript -->
+		<script type="application/javascript" src="js/lib/angular.min.js"></script>
+		<script type="application/javascript" src="js/lib/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+		<!-- SIEM GUI JavaScript -->
+		<script type="application/javascript" src="js/siemgui-login-app.js"></script>
+    </head>
+
+    <body ng-controller="LoginController">
+		<div class="container-fluid">
+			<div class="row">
+				<nav class="navbar navbar-default navbar-static-top" role="navigation">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="#">
+							<img id="siemguilogo" src="img/simu.svg" alt="iMonitor Logo">
+						</a>
+					</div>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="http://www.simu-project.de/" class="navbar-link">&copy;2014-2015 SIMU Konsortium</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+
+			<div class="row" ng-show="alert.show">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+					<alert type="{{ alert.type }}" close="hideAlerts()" ng-cloak class="ng-cloak">{{ alert.text }}</alert>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<div class="panel panel-primary">
+						<div class="panel-heading">Anmelden</div>
+						<div class="panel-body">
+							<form class="form-signin" method="post" action="login.html">
+								<input type="text" class="input-block-level" placeholder="Benutzername" name="username">
+								<input type="password" class="input-block-level" placeholder="Passwort" name="password">
+
+								<button class="btn btn-primary pull-right" type="submit">Absenden</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+		</div>
+    </body>
+</html>

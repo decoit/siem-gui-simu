@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="vis-mobile">
+<head>
+    <title>VisITMeta Javascript-GUI</title>
+    <meta name="apple-mobile-web-app-title" content="VisITMeta Mobile">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- non-retina iPhone vor iOS 7 -->
+    <link rel="apple-touch-icon" href="image/icons/icon57.png" sizes="57x57">
+    <!-- non-retina iPad vor iOS 7 -->
+    <link rel="apple-touch-icon" href="image/icons/icon72.png" sizes="72x72">
+    <!-- non-retina iPad iOS 7 -->
+    <link rel="apple-touch-icon" href="image/icons/icon76.png" sizes="76x76">
+    <!-- retina iPhone vor iOS 7 -->
+    <link rel="apple-touch-icon" href="image/icons/icon114.png" sizes="114x114">
+    <!-- retina iPhone iOS 7 -->
+    <link rel="apple-touch-icon" href="image/icons/icon120.png" sizes="120x120">
+    <!-- retina iPad vor iOS 7 -->
+    <link rel="apple-touch-icon" href="image/icons/icon144.png" sizes="144x144">
+    <!-- retina iPad iOS 7 -->
+    <link rel="apple-touch-icon" href="image/icons/icon152.png" sizes="152x152">
+    <!--Android-->
+    <link rel="shortcut icon" href="image/icons/icon196.png" sizes="196x196">
+
+    <!-- Jquery Mobile Styles -->
+    <link rel="stylesheet" href="js/libs/jquery-mobile-bower/css/jquery.mobile-1.4.5.min.css"/>
+    <!-- Color Picker Style -->
+    <link rel="stylesheet" href="js/libs/spectrum/spectrum.css"/>
+    <!-- App Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- home page -->
+
+<div data-role="page" id="home" data-theme="a">
+    <div data-role="header" data-position="fixed" data-theme="a">
+        <h1>Home</h1>
+    </div>
+    <div role="main" class="ui-content ui-grid-b">
+        <div class="ui-block-a"></div>
+        <div class="ui-block-b">
+            <ul data-role="listview" data-inset="true" data-theme="a" data-devide-theme="b">
+                <li data-role="list-divider">Menu</li>
+                <li><a href="#graph">Graph</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="#help">Help</a></li>
+            </ul>
+        </div>
+        <div class="ui-block-c"></div>
+    </div>
+</div>
+
+<div data-role="page" id="graph" data-theme="a" graph-page-view>
+    <div data-role="panel" id="navigation" data-display="overlay" data-dismissible="false" data-theme="a">
+        <a href="#" id="to-time" class="ui-btn ui-btn-inline ui-icon-clock ui-btn-icon-notext"></a>
+        <a href="#" id="to-search" class="ui-btn ui-btn-inline ui-icon-search ui-btn-icon-notext"></a>
+        <a href="#" id="to-visibility" class="ui-btn ui-btn-inline ui-icon-eye ui-btn-icon-notext"></a>
+        <a href="#" id="to-help" class="ui-btn ui-btn-inline ui-icon-info ui-btn-icon-notext"></a>
+        <a href="#" id="to-settings" class="ui-btn ui-btn-inline ui-icon-gear ui-btn-icon-notext"></a>
+        <!--<a href="#" id="to-home" class="ui-btn ui-btn-inline ui-icon-home ui-btn-icon-notext"></a>-->
+    </div>
+    <div data-role="popup" id="properties" data-theme="a">
+        <a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+        <div class="ui-content">
+          <table border="1" data-role="table" id="property-list" class="ui-body-d ui-shadow table-stripe ui-responsive">
+          </table>
+        </div>
+    </div>
+    <div data-role="popup" id="search" data-theme="a" search-view>
+        <a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+        <div class="ui-content">
+            <div class="ui-field-contain">
+                <label for="search-input">Search:</label>
+                <input type="search" name="search-input" id="search-input" value="" placeholder="node data" data-theme="a">
+            </div>
+            <div class="ui-field-contain">
+                <label for="search-type">Type:</label>
+                <select id="search-type" name="search-type" data-inline="true" data-native-menu="false">
+                </select>
+            </div>
+        </div>
+    </div>
+    <div data-role="popup" id="dialog" data-theme="a">
+        <div data-role="header" data-theme="a">
+            <h3 id="dialog-header"></h3>
+        </div>
+        <div class="ui-content">
+            <h4 id="dialog-text"></h4>
+            <button id="dialog-yes" class="ui-btn ui-btn-inline">Yes</button>
+            <button id="dialog-no" class="ui-btn ui-btn-inline">No</button>
+        </div>
+    </div>
+    <div data-role="popup" id="time" data-theme="a" time-view>
+        <a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+        <div data-role="header">
+            <h3>Time Settings</h3>
+        </div>
+        <div class="ui-content">
+            <div id="time-container">
+                <label for="time-slider">Timestamp: </label>
+                <input type="text" id="timestamp" readonly>
+                <input class="ui-hidden-accessible" type="range" id="time-slider" data-highlight="true">
+            </div>
+        </div>
+    </div>
+    <div data-role="header" data-position="fixed" data-theme="a">
+        <div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+            <a href="#" id="toggle-navigation" data-role="button" data-icon="bullets" data-iconpos="notext" data-theme="a" data-inline="true">Toggle</a>
+            <label class="ui-hidden-accessible" for="connections">Connections</label>
+            <select name="connections" id="connections" data-theme="a" data-native-menu="false" connection-view></select>
+        </div>
+        <h1>Graph</h1>
+        <div class="ui-btn-right" data-theme="a" live-view>
+            <label class="ui-hidden-accessible" for="live">Live</label>
+            <input name="live" id="live" type="checkbox" data-role="flipswitch">
+        </div>
+    </div>
+    <div role="main" class="ui-content">
+        <div id="graph-container">
+            <div id="graph-canvas" d3-graph-view></div>
+        </div>
+    </div>
+</div>
+
+<div data-role="page" id="settings" data-theme="a" settings-page-view>
+    <div data-role="popup" data-theme="a" id="status">
+        <p id="status-text"></p>
+    </div>
+    <div data-role="header" data-add-back-btn="true" data-position="fixed" data-theme="a">
+        <h1>Settings</h1>
+        <div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
+            <button id="save-settings" class="ui-btn ui-btn-inline">Save</button>
+            <button id="reset-settings" class="ui-btn ui-btn-inline">Reset</button>
+        </div>
+    </div>
+    <div role="main" class="ui-content ui-grid-b">
+        <div class="ui-block-a"></div>
+        <div class="ui-block-b">
+            <div data-role="collapsibleset" data-theme="a" data-content-theme="a">
+                <div data-role="collapsible">
+                    <h3>Interface</h3>
+                    <div class="ui-field-contain">
+                        <label for="nav-keep-open">Show Navigation</label>
+                        <input name="nav-keep-open" id="nav-keep-open" type="checkbox" data-role="flipswitch" checked>
+                    </div>
+                    <div class="ui-field-contain">
+                        <label for="nav-timeout-select">Navigation Timeout:</label>
+                        <select id="nav-timeout-select" name="nav-timeout-select" data-inline="true"
+                                data-native-menu="false">
+                        </select>
+                    </div>
+                </div>
+                <div data-role="collapsible">
+                    <h3>Graph</h3>
+                    <div class="ui-field-contain">
+                        <label for="identifier-color-select">Identifier Color:</label>
+                        <input type="hidden" id="identifier-color-select" data-enhance="false">
+                    </div>
+                    <div class="ui-field-contain">
+                        <label for="metadata-color-select">Metadata Color:</label>
+                        <input type="hidden" id="metadata-color-select" data-enhance="false">
+                    </div>
+                    <div class="ui-field-contain">
+                        <label for="selection-color-select">Selection Color:</label>
+                        <input type="hidden" id="selection-color-select" data-enhance="false">
+                    </div>
+                    <div class="ui-field-contain">
+                        <label for="selection-color-select">Search Color:</label>
+                        <input type="hidden" id="search-color-select" data-enhance="false">
+                    </div>
+                    <div class="ui-field-contain">
+                        <label for="node-font-select">Font:</label>
+                        <select id="node-font-select" name="node-font-select" data-inline="true"
+                                data-native-menu="false">
+                        </select>
+                    </div>
+                    <div class="ui-field-contain">
+                        <label for="node-font-size-select">Font Size:</label>
+                        <select id="node-font-size-select" name="node-font-size-select" data-inline="true"
+                                data-native-menu="false">
+                        </select>
+                    </div>
+                    <div class="ui-field-contain">
+                        <label for="edge-linktype">Edge style:</label>
+                        <select id="edge-linktype" name="edge-linktype" data-inline="true"
+                                data-native-menu="false">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui-block-c"></div>
+    </div>
+</div>
+
+<div data-role="page" id="help" data-theme="a">
+    <div data-role="header" data-add-back-btn="true" data-position="fixed">
+        <h1>Help</h1>
+    </div>
+    <div class="ui-content">
+        <div id="help-screen"></div>
+    </div>
+</div>
+
+<!-- jQuery 2.1.1 -->
+<script src="js/libs/jquery/jquery.min.js"></script>
+
+<!-- jQuery Mobile 1.4.5 -->
+<script src="js/libs/jquery-mobile-bower/js/jquery.mobile-1.4.5.min.js"></script>
+
+<!-- Spectrum Color Picker -->
+<script type="text/javascript" src="js/libs/spectrum/spectrum.js"></script>
+
+<!-- D3 -->
+<script src="js/libs/d3/d3.min.js"></script>
+
+<!-- Springyjs Force Directory Layout -->
+<script src="js/libs/springy/springy.js"></script>
+
+<!-- Angular JS -->
+<script src="js/libs/angular/angular.min.js"></script>
+
+<!-- OOP for javaScript -->
+<script src="js/oop/oop_js.js"></script>
+
+<!-- IF-MAP Objects -->
+<script src="js/app/model/Node.js"></script>
+<script src="js/app/model/Identifier.js"></script>
+<script src="js/app/model/Metadata.js"></script>
+<script src="js/app/model/Link.js"></script>
+<script src="js/app/model/Graph.js"></script>
+<script src="js/app/model/Delta.js"></script>
+<script src="js/app/model/Change.js"></script>
+
+<!-- Parser -->
+<script src="js/app/helper/DeltaJsonParser.js"></script>
+<script src="js/app/helper/GraphJsonParser.js"></script>
+<script src="js/app/helper/LinkJsonParser.js"></script>
+<script src="js/app/helper/PropertiesParser.js"></script>
+
+<!-- APP -->
+<script src="js/app/app.js"></script>
+<script src="js/mobile/mobile.js"></script>
+
+<!-- Factories -->
+<script src="js/app/factory/ConnectionFactory.js"></script>
+<script src="js/app/factory/GraphFactory.js"></script>
+<script src="js/app/factory/ChangesFactory.js"></script>
+
+<!-- Services -->
+<script src="js/app/service/CallbackService.js"></script>
+<script src="js/app/service/PollingService.js"></script>
+<script src="js/app/service/ConnectionService.js"></script>
+<script src="js/app/service/ChangesService.js"></script>
+<script src="js/app/service/GraphLayout.js"></script>
+<script src="js/mobile/service/D3GraphLayout.js"></script>
+
+<!-- Controller -->
+<script src="js/app/controller/ConnectionController.js"></script>
+<script src="js/app/controller/GraphController.js"></script>
+<script src="js/app/controller/ChangesController.js"></script>
+<script src="js/app/controller/LiveController.js"></script>
+<script src="js/app/controller/TimestampSliderController.js"></script>
+
+<!-- Directive -->
+<script src="js/app/directives/GraphDirective.js"></script>
+
+<!-- Mobile Controller -->
+<script src="js/mobile/controller/D3GraphController.js"></script>
+<script src="js/mobile/controller/GraphPageController.js"></script>
+<script src="js/mobile/controller/SettingsPageController.js"></script>
+<script src="js/mobile/controller/SearchController.js"></script>
+<script src="js/mobile/controller/TimeController.js"></script>
+<script src="js/mobile/controller/LiveController.js"></script>
+
+<!-- Mobile Directive -->
+<script src="js/mobile/directives/GraphPageView.js"></script>
+<script src="js/mobile/directives/SearchView.js"></script>
+<script src="js/mobile/directives/LiveView.js"></script>
+<script src="js/mobile/directives/ConnectionView.js"></script>
+<script src="js/mobile/directives/TimeView.js"></script>
+<script src="js/mobile/directives/SettingsPageView.js"></script>
+<script src="js/mobile/directives/D3GraphView.js"></script>
+
+<!-- Mobile Services  -->
+<script src="js/mobile/service/Settings.js"></script>
+
+</body>
+</html>

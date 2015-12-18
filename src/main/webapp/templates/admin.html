@@ -1,0 +1,21 @@
+<div class="panel-heading">Administration</div>
+<div class="panel-body">
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<ul class="nav nav-tabs">
+				<li>
+					<a ng-class="{active: subnavpath==='users'}" ng-click="setSubnavpathUsers()" ui-sref="admin.users">Benutzer</a>
+				</li>
+<!--				<li>
+					<a ng-class="{active: subnavpath==='recommendations'}" ng-click="setSubnavpathRecommendations()" ui-sref="admin.recommendations">Handlungsempfehlungen</a>
+				</li>
+				<li>
+					<a ng-class="{active: subnavpath==='rules'}" ng-click="setSubnavpathRules()" ui-sref="admin.rules">Korrelationsregeln</a>
+				</li> -->
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12" ui-view></div>
+	</div>
+</div>

@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "name": "visitmeta-mobile",
+  "version": "0.1.0",
+  "description": "A Javascript-based visualization client for VisITMeta, a software to record and visualize IF-MAP graphs.",
+  "main": "index.html",
+  "dependencies": {
+    "gulp": "^3.8.8"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-help": "^1.6.0",
+    "gulp-load-plugins": "^1.0.0-rc.1",
+    "gulp-webserver": "^0.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "prototype",
+    "mobile"
+  ],
+  "author": "Daniel H., Soeren G., Bastian H., Thomas R.",
+  "license": "Apache v2"
+}

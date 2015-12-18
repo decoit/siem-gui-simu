@@ -1,0 +1,104 @@
+<div class="panel-heading">Übersicht</div>
+<div class="panel-body">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">SIEM Tickets</div>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Status</th>
+								<th>Anzahl</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Neu:</td>
+								<td>{{ info.tickets.ticketsNew }}</td>
+							</tr>
+							<tr>
+								<td>Offen:</td>
+								<td>{{ info.tickets.ticketsOpen }}</td>
+							</tr>
+							<tr>
+								<td>Gelöst:</td>
+								<td>{{ info.tickets.ticketsResolved }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">Meine SIEM Tickets</div>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Status</th>
+								<th>Anzahl</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Neu:</td>
+								<td>{{ info.tickets.myTicketsNew }}</td>
+							</tr>
+							<tr>
+								<td>Offen:</td>
+								<td>{{ info.tickets.myTicketsOpen }}</td>
+							</tr>
+							<tr>
+								<td>Gelöst:</td>
+								<td>{{ info.tickets.myTicketsResolved }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">Vorfälle</div>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Status</th>
+								<th>Anzahl</th>
+								<th>Risikoklasse</th>
+								<th>Anzahl</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Neu:</td>
+								<td>{{ info.incidents.incidentsNew }}</td>
+								<td>Hohes Risiko (7-10):</td>
+								<td>{{ info.incidents.incidentsHighRisk }}</td>
+							</tr>
+							<tr>
+								<td>In Bearbeitung:</td>
+								<td>{{ info.incidents.incidentsInProgress }}</td>
+								<td>Mittleres Risiko (4-6):</td>
+								<td>{{ info.incidents.incidentsMediumRisk }}</td>
+							</tr>
+							<tr>
+								<td>Unbekannt:</td>
+								<td>{{ info.incidents.incidentsUnknown }}</td>
+								<td>Niedriges Risiko (0-3):</td>
+								<td>{{ info.incidents.incidentsLowRisk }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

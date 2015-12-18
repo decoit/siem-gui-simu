@@ -1,0 +1,32 @@
+{
+  "private": true,
+  "name": "visitmeta-mobile",
+  "version": "0.1.0",
+  "authors": [
+    "Daniel Hülse <daniel.huelse@stud.hs-hannover.de>",
+    "Sören Grzanna <soeren.grzanna@stud.hs-hannover.de>",
+    "Bastian Hellmann <bastian.hellmann@hs-hannover.de>",
+    "Thomas Rix <rix@decoit.de>"
+  ],
+  "description": "A Javascript-based visualization client for VisITMeta, a software to record and visualize IF-MAP graphs.",
+  "main": "index.html",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "Apache v2",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": null,
+    "jquery-mobile-bower": "~1.4.5",
+    "angular": "~1.3.5",
+    "springy": "~2.6.1",
+    "d3": "~3.5.3",
+    "spectrum": "~1.6.0"
+  }
+}

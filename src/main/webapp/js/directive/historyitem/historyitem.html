@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<div ng-if="quote !== 'true' || item.text === undefined" class="row">
+			<div class="col-md-9"><strong>{{ title }}</strong><br>von {{ realName }}</div>
+			<div class="col-md-3 text-right">{{ date }}<br>{{ time }}</div>
+		</div>
+		<div ng-if="quote === 'true' && item.text !== undefined" class="row">
+			<div class="col-md-9"><strong>{{ title }}</strong><br>von {{ realName }}</div>
+			<div class="col-md-3 text-right">{{ date }} - {{ time }}<br><button type="button" class="btn btn-primary btn-xs" ng-click="callQuoteCallback()">Zitieren</button></div>
+		</div>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-12" ng-bind-html="contentText"></div>
+		</div>
+	</div>
+</div>
